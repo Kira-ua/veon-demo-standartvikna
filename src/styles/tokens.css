@@ -1,0 +1,43 @@
+/* Hallmark · shape: креслярський стіл · genre: modern-minimal · theme: custom · job: buy · idea: "Креслення в міліметрах: сайт креслить ваше вікно в масштабі, поки ви вводите розміри" · vibe: "точно, по-виробничому, спокійно, київське"
+ * paper: #F2F3F0 · accent: #F5A21B · display: Fixel Display · body: Fixel Text · hero: H1 зверху ліворуч, під ним темний стіл з живим кресленням і полями мм на розмірних лініях · nav: світла, номер з годинами як дія · footer: темна смуга · imagery: the product (креслення) · signature: вікно перекреслюється в пропорціях при введенні мм
+ * axes: light/geometric-sans/chromatic-amber · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: V, фото клієнта немає — візуал тримає креслення і типографіка */
+/* Line 1 of this file is the Hallmark stamp (docs/process/hallmark.md): fill it from design/concept.md; waivers go right below it. */
+/* Client design tokens from design/concept.md (veon-concept: colors, fonts). */
+:root {
+  --color-bg: #F2F3F0;
+  --color-surface: #FBFBF9;
+  --color-surface-2: #E4E7E2;
+  --color-text: #17201D;
+  --color-text-muted: #545E5A;
+  --color-field: #17201D;
+  --color-field-2: #2C3833;
+  --color-line-dark: #A8B2AD;
+  --color-hairline: #C8CEC9;
+  --color-accent: #F5A21B;
+  --color-on-accent: #17201D;
+  --color-accent-ink: #17201D;
+  --color-accent-hover: #FFB63F;
+  --color-accent-on-light: #9A5500;
+  --color-glass: #CFDCDD;
+  --color-danger: #B3261E;
+  --color-danger-on-dark: #FFB4AB;
+  --color-success: #2E7A36;
+  --font-display: "Fixel Display", system-ui, sans-serif;
+  --font-body: "Fixel Text", system-ui, sans-serif;
+  --radius: 4px;
+  --radius-lg: 8px;
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 420ms;
+  --dur-fast: 120ms;
+  --space: clamp(20px, 5vw, 120px);
+  --container: 1360px;
+  --header-h: 56px;
+  --bar-h: 56px;
+  --gutter: 24px;
+}
+@media (min-width: 1180px) { :root { --header-h: 72px; --bar-h: 0px; } }
+@font-face { font-family: "Fixel Display"; font-weight: 700; font-style: normal; font-display: swap; src: url("../assets/fonts/FixelDisplay-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Fixel Display"; font-weight: 300; font-style: normal; font-display: swap; src: url("../assets/fonts/FixelDisplay-Light.woff2") format("woff2"); }
+@font-face { font-family: "Fixel Text"; font-weight: 400; font-style: normal; font-display: swap; src: url("../assets/fonts/FixelText-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Fixel Text"; font-weight: 700; font-style: normal; font-display: swap; src: url("../assets/fonts/FixelText-Bold.woff2") format("woff2"); }

@@ -1,0 +1,33 @@
+---
+import FutureLink from "./FutureLink.astro";
+import logoLight from "../assets/logo-light.svg?raw";
+import { CONTACT, SOON } from "../data";
+---
+<footer class="site-footer dark" data-rec="R-013,R-014,M-R005,S-R008">
+  <div class="container site-footer__grid">
+    <a class="logo logo--light" href="#top" aria-label="Стандарт Вікна — на початок сторінки" set:html={logoLight} />
+    <p class="site-footer__contact">
+      <a class="site-footer__phone" href={`tel:${CONTACT.phoneMain.tel}`}>{CONTACT.phoneMain.text}</a>
+      <span>{CONTACT.address}</span>
+      <span>Щодня {CONTACT.hours}, без вихідних</span>
+    </p>
+    <ul class="site-footer__links" aria-label="Розділи сайту">
+      <li><FutureLink note={SOON}>Вікна</FutureLink></li>
+      <li><FutureLink note={SOON}>Балкони</FutureLink></li>
+      <li><FutureLink note={SOON}>Двері та розсувні</FutureLink></li>
+      <li><FutureLink note={SOON}>Ціни</FutureLink></li>
+      <li><FutureLink note={SOON}>Розстрочка</FutureLink></li>
+      <li><FutureLink note={SOON}>Про компанію</FutureLink></li>
+    </ul>
+    <p class="site-footer__social">
+      <a href={CONTACT.facebook} target="_blank" rel="noopener">Facebook</a>
+      <a href={CONTACT.instagram} target="_blank" rel="noopener">Instagram</a>
+    </p>
+    <p class="site-footer__copy">© Стандарт Вікна</p>
+  </div>
+</footer>
+<div class="dock" data-dock data-rec="R-002">
+  <a class="dock__btn dock__btn--call" href={`tel:${CONTACT.phoneMain.tel}`}>Подзвонити</a>
+  <a class="dock__btn" href={CONTACT.telegram} target="_blank" rel="noopener">Telegram</a>
+  <a class="dock__btn" href={CONTACT.viber}>Viber</a>
+</div>

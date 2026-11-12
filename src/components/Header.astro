@@ -1,0 +1,51 @@
+---
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import logo from "../assets/logo.svg?raw";
+import { CONTACT, SOON } from "../data";
+---
+<header class="site-header" data-rec="R-009,R-010,R-012">
+  <div class="site-header__row">
+    <a class="logo" href="#top" aria-label="Стандарт Вікна — на початок сторінки" set:html={logo} />
+    <nav class="nav nav--desktop" aria-label="Основне меню">
+      <a href="#calculator">Калькулятор</a>
+      <a href="#process">Як працюємо</a>
+      <FutureLink note={SOON}>Вікна</FutureLink>
+      <FutureLink note={SOON}>Балкони</FutureLink>
+      <FutureLink note={SOON}>Двері та розсувні</FutureLink>
+      <FutureLink note={SOON}>Ціни</FutureLink>
+      <a href="#contacts">Контакти</a>
+    </nav>
+    <div class="site-header__tools">
+      <a class="hd-phone" href={`tel:${CONTACT.phoneMain.tel}`}>
+        <span class="hd-phone__num">{CONTACT.phoneMain.text}</span>
+        <span class="hd-phone__hours">{CONTACT.hours} без вихідних</span>
+      </a>
+      <a class="icon-btn icon-btn--phone" href={`tel:${CONTACT.phoneMain.tel}`} aria-label="Подзвонити: +38 (067) 760 66 44"><Icon name="phone" size={22} /></a>
+      <a class="icon-btn icon-btn--desk" href={CONTACT.telegram} target="_blank" rel="noopener" aria-label="Написати в Telegram"><Icon name="telegram" size={22} /></a>
+      <a class="icon-btn icon-btn--desk" href={CONTACT.viber} aria-label="Написати у Viber"><Icon name="viber" size={22} /></a>
+      <p class="lang" aria-label="Мова сайту"><span aria-current="true">UA</span> / <FutureLink note="Російська версія з'явиться в повній версії сайту">RU</FutureLink></p>
+      <details class="menu">
+        <summary class="icon-btn" aria-label="Меню"><span class="menu__open"><Icon name="menu" size={24} /></span><span class="menu__close"><Icon name="close" size={24} /></span></summary>
+        <div class="menu__panel">
+          <div class="menu__channels">
+            <a class="btn btn--primary" href={`tel:${CONTACT.phoneMain.tel}`}><Icon name="phone" size={18} /> Подзвонити</a>
+            <a class="btn btn--ghost" href={CONTACT.telegram} target="_blank" rel="noopener"><Icon name="telegram" size={18} /> Telegram</a>
+            <a class="btn btn--ghost" href={CONTACT.viber}><Icon name="viber" size={18} /> Viber</a>
+          </div>
+          <nav class="menu__nav" aria-label="Меню сторінки">
+            <a href="#calculator">Калькулятор</a>
+            <a href="#process">Як працюємо</a>
+            <FutureLink note={SOON}>Вікна</FutureLink>
+            <FutureLink note={SOON}>Балкони</FutureLink>
+            <FutureLink note={SOON}>Двері та розсувні</FutureLink>
+            <FutureLink note={SOON}>Ціни</FutureLink>
+            <a href="#contacts">Контакти</a>
+          </nav>
+          <p class="lang lang--menu" aria-label="Мова сайту"><span aria-current="true">UA</span> / <FutureLink note="Російська версія з'явиться в повній версії сайту">RU</FutureLink></p>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+<script src="../scripts/menu.ts"></script>

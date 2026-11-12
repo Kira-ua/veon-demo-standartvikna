@@ -1,0 +1,150 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { TYPES, VB, layout, windowSvg, dimsSvg, miniSvg } from "../scripts/drawing";
+import { CONTACT, SOON } from "../data";
+
+const DEF = { type: "single", w: 750, h: 1350, profile: "rehau", glass: "single", system: "d60" };
+const profiles = [
+  { id: "rehau", label: "REHAU" },
+  { id: "salamander", label: "Salamander" },
+  { id: "wds", label: "WDS" },
+];
+const glasses = [
+  { id: "single", label: "Однокамерний" },
+  { id: "double", label: "Двокамерний" },
+  { id: "energy", label: "Енергозберігаючий" },
+  { id: "sun", label: "Сонцезахисний" },
+];
+const systems = [
+  { id: "d60", label: "Design-60" },
+  { id: "d70", label: "Design-70" },
+];
+const options = [
+  { id: "mount", label: "Монтаж / демонтаж" },
+  { id: "sill", label: "Підвіконня" },
+  { id: "drip", label: "Відлив" },
+  { id: "slope", label: "Укоси" },
+];
+const geo = layout(DEF.w, DEF.h);
+const type0 = TYPES.find((t) => t.id === DEF.type)!;
+const dims = dimsSvg(geo);
+const pct = (v: number, of: number) => `${((v / of) * 100).toFixed(2)}%`;
+---
+<Section id="calculator" rec="R-001,R-003,R-004,R-015,G-R002,M-R003,M-R004" class="calc-section" label="Калькулятор вікон">
+  <div class="hero">
+  <div class="container hero-head">
+    <h1 data-rec="R-021">Металопластикові вікна в Києві за вашими розмірами</h1>
+    <p class="lead">Оберіть тип і введіть розміри в міліметрах: креслення оновиться, а параметри підуть менеджеру.</p>
+  </div>
+  <div class="container">
+    <div class="calc dark" data-calc data-step="1">
+      <h2 class="visually-hidden">Калькулятор вікон</h2>
+      <div class="calc__stage" data-stage>
+        <svg class="layer layer--win" data-win viewBox={`0 0 ${VB.w} ${VB.h}`} role="img" aria-label="Креслення вікна у масштабі" preserveAspectRatio="xMidYMid meet" set:html={windowSvg(type0, geo)} />
+        <svg class="layer layer--dims" data-dims viewBox={`0 0 ${VB.w} ${VB.h}`} aria-hidden="true" preserveAspectRatio="xMidYMid meet" set:html={dims.svg} />
+        <label class="dim-input dim-input--w" data-in-w style={`left:${pct(dims.cx, VB.w)};top:${pct(dims.wy, VB.h)}`}>
+          <span class="visually-hidden">Ширина, мм</span>
+          <input type="text" inputmode="numeric" autocomplete="off" maxlength="4" value={DEF.w} name="w" aria-describedby="size-error" />
+          <span class="dim-input__unit" aria-hidden="true">мм</span>
+        </label>
+        <label class="dim-input dim-input--h" data-in-h style={`left:${pct(dims.hx, VB.w)};top:${pct(dims.cy, VB.h)}`}>
+          <span class="visually-hidden">Висота, мм</span>
+          <input type="text" inputmode="numeric" autocomplete="off" maxlength="4" value={DEF.h} name="h" aria-describedby="size-error" />
+          <span class="dim-input__unit" aria-hidden="true">мм</span>
+        </label>
+      </div>
+
+      <p class="stepper__label" data-step-label aria-live="polite"><span class="stepper__n">Крок <span data-step-n>1</span> з 6</span>: <span data-step-name>тип конструкції</span></p>
+
+      <div class="panel panel--types" data-step-panel="1" role="radiogroup" aria-labelledby="h-type">
+        <h3 id="h-type" class="panel__title">Тип конструкції</h3>
+        <div class="tiles">
+          {TYPES.map((t) => (
+            <label class="tile">
+              <input type="radio" name="type" value={t.id} data-label={t.label} checked={t.id === DEF.type} />
+              <span class="tile__art" set:html={miniSvg(t)} />
+              <span class="tile__name">{t.label}</span>
+              <span class="tile__check" aria-hidden="true"><Icon name="check" size={14} /></span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div class="calc__params">
+        <div class="panel" data-step-panel="2">
+          <h3 class="panel__title">Розміри, мм</h3>
+          <p class="panel__hint">Ширина — на нижній розмірній лінії, висота — на лівій. Вводьте прямо на кресленні.</p>
+          <p id="size-error" class="field-error" role="alert" data-error></p>
+        </div>
+
+        <div class="panel" data-step-panel="3" role="radiogroup" aria-labelledby="h-profile">
+          <h3 id="h-profile" class="panel__title">Профіль</h3>
+          <div class="seg">
+            {profiles.map((p) => (
+              <label class="seg__item"><input type="radio" name="profile" value={p.id} data-label={p.label} checked={p.id === DEF.profile} /><span>{p.label}</span></label>
+            ))}
+          </div>
+          <p class="panel__hint">Не знаєте, що обрати? Залиште початковий вибір — менеджер уточнить із вами.</p>
+        </div>
+
+        <div class="panel" data-step-panel="4" role="radiogroup" aria-labelledby="h-glass">
+          <h3 id="h-glass" class="panel__title">Склопакет</h3>
+          <div class="seg seg--wrap">
+            {glasses.map((g) => (
+              <label class="seg__item"><input type="radio" name="glass" value={g.id} data-label={g.label.toLowerCase()} checked={g.id === DEF.glass} /><span>{g.label}</span></label>
+            ))}
+          </div>
+        </div>
+
+        <div class="panel" data-step-panel="5" role="radiogroup" aria-labelledby="h-system">
+          <h3 id="h-system" class="panel__title">Система</h3>
+          <div class="seg">
+            {systems.map((s) => (
+              <label class="seg__item"><input type="radio" name="system" value={s.id} data-label={s.label} checked={s.id === DEF.system} /><span>{s.label}</span></label>
+            ))}
+          </div>
+        </div>
+
+        <div class="panel" data-step-panel="6" role="group" aria-labelledby="h-opt">
+          <h3 id="h-opt" class="panel__title">Опції</h3>
+          <div class="opts">
+            {options.map((o) => (
+              <label class="opt"><input type="checkbox" name="opt" value={o.id} data-label={o.label.toLowerCase()} /><span class="opt__box" aria-hidden="true"><Icon name="check" size={14} /></span><span>{o.label}</span></label>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="stepper__nav" data-step-nav>
+        <button type="button" class="btn btn--ghost" data-prev hidden>Назад</button>
+        <button type="button" class="btn btn--primary" data-next>Далі</button>
+      </div>
+
+      <div class="bar" data-bar>
+        <div class="bar__sum">
+          <h3 class="bar__title">Ваше вікно</h3>
+          <dl class="sum" data-summary>
+            <div><dt>Тип</dt><dd data-sum="type">{type0.label}</dd></div>
+            <div><dt>Розміри</dt><dd data-sum="size">{DEF.w} × {DEF.h} мм</dd></div>
+            <div><dt>Профіль</dt><dd data-sum="profile">REHAU</dd></div>
+            <div><dt>Склопакет</dt><dd data-sum="glass">однокамерний</dd></div>
+            <div><dt>Система</dt><dd data-sum="system">Design-60</dd></div>
+            <div><dt>Опції</dt><dd data-sum="opt">без додаткових опцій</dd></div>
+          </dl>
+          <p class="bar__note">Точну вартість менеджер назве за цими параметрами, остаточну — після <a href="#process">заміру</a>. Можна оплатити частинами: <FutureLink note={SOON}>Розстрочка</FutureLink></p>
+        </div>
+        <div class="bar__act">
+          <a class="btn btn--primary" href={CONTACT.telegram} target="_blank" rel="noopener" data-send="tg"><Icon name="telegram" size={18} /> Надіслати в Telegram</a>
+          <a class="btn btn--ghost" href={CONTACT.viber} data-send="viber"><Icon name="viber" size={18} /> Надіслати у Viber</a>
+          <a class="btn btn--ghost" href={`tel:${CONTACT.phoneMain.tel}`}><Icon name="phone" size={18} /> Подзвонити</a>
+          <p class="bar__status" role="status" data-status></p>
+        </div>
+      </div>
+    </div>
+    <noscript><p class="noscript-note">Щоб креслення оновлювалось, потрібен JavaScript. Параметри вікна можна просто продиктувати: <a href={`tel:${CONTACT.phoneMain.tel}`}>{CONTACT.phoneMain.text}</a>.</p></noscript>
+  </div>
+  </div>
+</Section>
+<script src="../scripts/calculator.ts"></script>

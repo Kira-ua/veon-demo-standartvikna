@@ -1,0 +1,136 @@
+---
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Calculator from "../components/Calculator.astro";
+import FutureLink from "../components/FutureLink.astro";
+import Icon from "../components/Icon.astro";
+import { CONTACT, SOON } from "../data";
+
+const title = "Металопластикові вікна в Києві — калькулятор вікон онлайн | Стандарт Вікна";
+const description = "Порахуйте своє вікно за розмірами: тип, профіль REHAU, Salamander або WDS, склопакет, монтаж. Власне виробництво в Києві з 2003 року. Тел. +38 (067) 760 66 44.";
+
+const chain = [
+  { dim: "Розрахунок", text: "Тип, розміри, профіль і склопакет — у калькуляторі. Параметри йдуть менеджеру в месенджер або дзвінком." },
+  { dim: "Замір", text: "Менеджер уточнює параметри разом із вами. Остаточну вартість називає після заміру." },
+  { dim: "3–4 дні", text: "Виготовлення на власному виробництві в Києві." },
+  { dim: "Монтаж", text: "Монтаж, підвіконня, відлив і укоси — за вашим вибором у калькуляторі." },
+];
+
+const systems = [
+  { id: "rehau", name: "REHAU", text: "У таблицях цін: Ecosol 60, Ecosol 70, Brilliant Design, Synego, Geneo.", pick: true },
+  { id: "salamander", name: "Salamander", text: "Профіль доступний у калькуляторі.", pick: true },
+  { id: "wds", name: "WDS", text: "Профіль доступний у калькуляторі.", pick: true },
+  { id: "openteck", name: "OpenTeck", text: "Розрахунок — у менеджера.", pick: false },
+];
+
+const services = [
+  { name: "Балкони", text: "Скління та оздоблення" },
+  { name: "ПВХ і балконні двері", text: "ПВХ-двері та балконні двері" },
+  { name: "Розсувні системи REHAU", text: "Системи REHAU" },
+  { name: "Ремонт вікон і фурнітури", text: "Фурнітура T&T" },
+  { name: "Підвіконня, відливи, укоси", text: "Danke, Veralit" },
+  { name: "Розстрочка", text: "Оплата частинами" },
+];
+
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Стандарт Вікна",
+  description: "Металопластикові вікна, балкони та двері в Києві. Власне виробництво.",
+  address: { "@type": "PostalAddress", streetAddress: "вул. Васильківська, 34, оф. 229-В", addressLocality: "Київ", addressCountry: "UA" },
+  telephone: [CONTACT.phoneMain.tel, CONTACT.phone2.tel, CONTACT.phoneMsg.tel],
+  email: CONTACT.email,
+  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "08:00", closes: "19:00" }],
+  areaServed: "Київ і Київська область",
+  sameAs: [CONTACT.facebook, CONTACT.instagram, CONTACT.telegram],
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <Header slot="header" />
+
+  <div data-rec="R-016" class="page">
+    <Calculator />
+
+    <Section id="process" rec="R-011" class="process" label="Як ми працюємо">
+      <div class="container">
+        <h2>Від міліметрів до монтажу</h2>
+        <ol class="chain">
+          {chain.map((c, i) => (
+            <li data-reveal style={`--reveal-delay:${i * 80}ms`}>
+              <span class="chain__dim">{c.dim}</span>
+              <p>{c.text}</p>
+            </li>
+          ))}
+        </ol>
+        <p class="chain__back"><a class="textlink" href="#calculator">Повернутися до калькулятора <Icon name="arrow" size={18} /></a></p>
+      </div>
+    </Section>
+
+    <Section id="maker" class="maker dark" label="Виробництво">
+      <div class="container">
+        <div class="maker__head">
+          <p class="maker__year" aria-hidden="true">2003</p>
+          <div class="maker__text">
+            <h2>Виготовляємо в Києві з 2003 року</h2>
+            <p>Власне виробництво в Києві. Вікна виготовляємо під розміри вашого прорізу — ті, що ви вводите в калькуляторі.</p>
+          </div>
+        </div>
+        <ul class="systems">
+          {systems.map((s) => (
+            <li>
+              <h3>{s.name}</h3>
+              <p>{s.text}</p>
+              {s.pick
+                ? <a class="textlink" href="#calculator" data-pick-profile={s.id}>Обрати в калькуляторі <Icon name="arrow" size={18} /></a>
+                : <a class="textlink" href="#contacts">Запитати менеджера <Icon name="arrow" size={18} /></a>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Section>
+
+    <Section id="services" class="services" label="Інші роботи">
+      <div class="container">
+        <h2>Не лише вікна</h2>
+        <ul class="svc-list">
+          {services.map((s) => (
+            <li>
+              <FutureLink class="svc" note={SOON}>
+                <span class="svc__name">{s.name}</span>
+                <span class="svc__text">{s.text}</span>
+                <span class="svc__arrow"><Icon name="arrow" size={22} /></span>
+              </FutureLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Section>
+
+    <Section id="contacts" class="contacts" label="Замір і зв'язок">
+      <div class="container">
+        <h2>Замір і зв'язок</h2>
+        <p class="contacts__lead">Домовтеся про замір телефоном або в месенджері.</p>
+        <a class="bignum" href={`tel:${CONTACT.phoneMain.tel}`}>{CONTACT.phoneMain.text}</a>
+        <p class="contacts__hours">Щодня {CONTACT.hours}, без вихідних</p>
+        <div class="contacts__grid">
+          <div class="contacts__btns">
+            <a class="btn btn--primary" href={`tel:${CONTACT.phoneMain.tel}`}><Icon name="phone" size={18} /> Подзвонити</a>
+            <a class="btn btn--ghost" href={CONTACT.telegram} target="_blank" rel="noopener"><Icon name="telegram" size={18} /> Telegram</a>
+            <a class="btn btn--ghost" href={CONTACT.viber}><Icon name="viber" size={18} /> Viber</a>
+          </div>
+          <dl class="contacts__list">
+            <div><dt>Другий номер</dt><dd><a href={`tel:${CONTACT.phone2.tel}`}>{CONTACT.phone2.text}</a></dd></div>
+            <div><dt>Telegram і Viber</dt><dd><a href={`tel:${CONTACT.phoneMsg.tel}`}>{CONTACT.phoneMsg.text}</a></dd></div>
+            <div><dt>E-mail</dt><dd><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></dd></div>
+            <div><dt>Адреса, Київ</dt><dd><a href={CONTACT.map} target="_blank" rel="noopener">{CONTACT.street}</a></dd></div>
+          </dl>
+        </div>
+      </div>
+    </Section>
+  </div>
+
+  <Footer slot="footer" />
+</Base>
